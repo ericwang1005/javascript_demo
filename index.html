@@ -52,29 +52,44 @@
         // console.log(result,typeof(result))
         // document.write("<h2>"+"您的BMI為"+result+"</h2>")
         
+        //函示宣告
+        function getRandomInt(start,end){
+            let r = Math.floor(Math.random()*end)+start;
+            return r;
+        }
+        document.write(Date())
         let numbers=[]
         // 外迴圈
         for(let j=0;j<5;j++){
             let number_set =[]
             // 輸出六個數字到網頁上
-            for(let i=0;i<6;i++){
+            while(true){
                 let r = getRandomInt(1,49);
-                //document.write('<ul>'+'<li>'+r+'</li>'+'</ul>')
-                //document.write("<h3>第"+(i+1)+"個號碼:"+r+"</h3>")
-                //使用反引號及$符號做輸出
-                //document.write(`<h3>第${i+1}個號碼:${r}</h3>`)
-                number_set.push(r)
+                if (!number_set.includes(r)){
+                    number_set.push(r);
+                }
+                if(number_set.length==6){
+                    break;
+                }
             }
-            numbers.push(numbers)
+            // 升降序需要給他一個方法
+            number_set.sort(compare)
+            numbers.push(number_set);
         }        
         console.log(numbers);
-        //函示宣告
-        function getRandomInt(start,end){
-            let r = Math.floor(Math.random()*end)+start;
-            return r
+        
+        // 方法原理是利用數字倆倆比對
+        function compare(a,b){
+            return a-b
         }
 
         //陣列(串列)
+        for(let i=0;i<numbers.length;i++){
+            let result = numbers[i].join(',')
+            console.log(result);
+            document.write(`<h3>第${i+1}組號碼: ${result}</h3><hr>`);
+        }
+
 
     </script>
 </body>
