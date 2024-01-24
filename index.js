@@ -46,25 +46,46 @@ function getRandomInt(start,end){
     let r = Math.floor(Math.random()*end)+start;
     return r;
 }
-document.write(Date())
-let numbers=[]
-// 外迴圈
-for(let j=0;j<5;j++){
-    let number_set =[]
-    // 輸出六個數字到網頁上
-    while(true){
-        let r = getRandomInt(1,49);
-        if (!number_set.includes(r)){
-            number_set.push(r);
+function getNumber(num){
+    let numbers=[]
+    // 外迴圈
+    for(let j=0;j<num;j++){
+        let number_set =[]
+        // 輸出六個數字到網頁上
+        while(true){
+            let r = getRandomInt(1,49);
+            if (!number_set.includes(r)){
+                number_set.push(r);
+            }
+            if(number_set.length==6){
+                break;
+            }
         }
-        if(number_set.length==6){
-            break;
-        }
+        // 升降序需要給他一個方法
+        number_set.sort(compare)
+        numbers.push(number_set);
+    };
+    return numbers;
+};
+function bingo(){
+    const lottoryEl = document.querySelector('#lottory');
+    numbers = getNumber(5)
+    lottoryEl.innerText=''
+    //陣列(串列)
+    for(let i=0;i<numbers.length;i++){
+        let result = numbers[i].join(',')
+        console.log(result);
+        lottoryEl.innerHTML+=`<h3>第${i+1}組號碼: ${result}</h3><hr>`
+        //document.write(`<h3>第${i+1}組號碼: ${result}</h3><hr>`);
     }
-    // 升降序需要給他一個方法
-    number_set.sort(compare)
-    numbers.push(number_set);
-}        
+};
+
+const dateEl = document.querySelector('.date');
+dateEl.innerText=Date()
+let btnBingo = document.querySelector('.btn')
+
+
+      
 console.log(numbers);
 
 // 方法原理是利用數字倆倆比對
@@ -72,14 +93,7 @@ function compare(a,b){
     return a-b
 }
 
-const lottoryEl = document.querySelector('#lottory');
-//陣列(串列)
-for(let i=0;i<numbers.length;i++){
-    let result = numbers[i].join(',')
-    console.log(result);
-    lottoryEl.innerHTML+=`<h3>第${i+1}組號碼: ${result}</h3><hr>`
-    //document.write(`<h3>第${i+1}組號碼: ${result}</h3><hr>`);
-}
+
 
 x = '3.5';
 //document.write(parseInt(x))
